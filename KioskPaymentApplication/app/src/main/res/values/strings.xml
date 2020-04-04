@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">KioskPaymentApplication</string>
+    <string name="ip">10.0.2.2</string>
+    <string name="ipphone">192.168.0.122:80</string>
 </resources>

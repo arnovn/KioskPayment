@@ -4,15 +4,360 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="@color/backgroundColor">
 
     <TextView
+        android:id="@+id/titleView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        android:fontFamily="@font/montserratmedium"
+        android:text="KIOSK PAYMENT APP"
+        android:textColor="@color/darkGreen"
+        android:textSize="20dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="60dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/titleView">
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:background="@drawable/customshape"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/paypalTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/montserratbold"
+                android:gravity="center_horizontal"
+                android:text="Welcome to our payment app."
+                android:textColor="@color/darkGreen"
+                android:textSize="18dp" />
+
+            <TextView
+                android:id="@+id/paypalSideText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/montserratlight1"
+                android:gravity="center_horizontal"
+                android:text="In order to pay for something login to your account:"
+                android:textColor="@color/darkGreen"
+                android:textSize="14dp" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical"
+                android:background="@drawable/homescreenbuttonshape">
+
+                <EditText
+                    android:id="@+id/editEmailText"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginHorizontal="40dp"
+                    android:layout_marginVertical="20dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/morewhiterbuttonshape"                    android:fontFamily="@font/montserratmedium"
+                    android:hint="Input user mail here"
+                    android:inputType="textEmailAddress"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:textAlignment="center"
+                    android:textColor="@color/darkGreen"
+                    android:textSize="14dp" />
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/codeView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/montserratmedium"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:text="CODE"
+                android:textColor="@color/darkGreen"
+                android:textFontWeight="1"
+                android:textSize="14dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="60dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/homescreenbuttonshape"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/codeView1"
+                    android:layout_width="20dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="10dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/morewhiterbuttonshape"
+                    android:fontFamily="@font/montserratmedium"
+                    android:gravity="center"
+                    android:paddingVertical="6dp"
+                    android:text=""
+                    android:textColor="@color/darkGreen"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:id="@+id/codeView2"
+                    android:layout_width="20dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/morewhiterbuttonshape"
+                    android:fontFamily="@font/montserratmedium"
+                    android:gravity="center"
+                    android:paddingVertical="6dp"
+                    android:text=""
+                    android:textColor="@color/darkGreen"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:id="@+id/codeView3"
+                    android:layout_width="20dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/morewhiterbuttonshape"
+                    android:fontFamily="@font/montserratmedium"
+                    android:gravity="center"
+                    android:paddingVertical="6dp"
+                    android:text=""
+                    android:textColor="@color/darkGreen"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:id="@+id/codeView4"
+                    android:layout_width="20dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/morewhiterbuttonshape"
+                    android:fontFamily="@font/montserratmedium"
+                    android:gravity="center"
+                    android:paddingVertical="6dp"
+                    android:text=""
+                    android:textColor="@color/darkGreen"
+                    android:textSize="20dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="10dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/entryButton1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="8dp"
+                        android:layout_marginVertical="8dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/morewhiterbuttonshape"
+                        android:fontFamily="@font/montserratmedium"
+                        android:text="1"
+                        android:textColor="@color/darkGreen" />
+
+                    <Button
+                        android:id="@+id/entryButton2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="8dp"
+                        android:layout_marginVertical="8dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/morewhiterbuttonshape"
+                        android:fontFamily="@font/montserratmedium"
+                        android:text="2"
+                        android:textColor="@color/darkGreen" />
+
+                    <Button
+                        android:id="@+id/entryButton3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="8dp"
+                        android:layout_marginVertical="8dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/morewhiterbuttonshape"
+                        android:fontFamily="@font/montserratmedium"
+                        android:text="3"
+                        android:textColor="@color/darkGreen" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/entryButton4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="8dp"
+                        android:layout_marginVertical="8dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/morewhiterbuttonshape"
+                        android:fontFamily="@font/montserratmedium"
+                        android:text="4"
+                        android:textColor="@color/darkGreen" />
+
+                    <Button
+                        android:id="@+id/entryButton5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="8dp"
+                        android:layout_marginVertical="8dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/morewhiterbuttonshape"
+                        android:fontFamily="@font/montserratmedium"
+                        android:text="5"
+                        android:textColor="@color/darkGreen" />
+
+                    <Button
+                        android:id="@+id/entryButton6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="8dp"
+                        android:layout_marginVertical="8dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/morewhiterbuttonshape"
+                        android:fontFamily="@font/montserratmedium"
+                        android:text="6"
+                        android:textColor="@color/darkGreen" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/entryButton7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="8dp"
+                        android:layout_marginVertical="8dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/morewhiterbuttonshape"
+                        android:fontFamily="@font/montserratmedium"
+                        android:text="7"
+                        android:textColor="@color/darkGreen" />
+
+                    <Button
+                        android:id="@+id/entryButton8"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="8dp"
+                        android:layout_marginVertical="8dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/morewhiterbuttonshape"
+                        android:fontFamily="@font/montserratmedium"
+                        android:text="8"
+                        android:textColor="@color/darkGreen" />
+
+                    <Button
+                        android:id="@+id/entryButton9"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="8dp"
+                        android:layout_marginVertical="8dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/morewhiterbuttonshape"
+                        android:fontFamily="@font/montserratmedium"
+                        android:text="9"
+                        android:textColor="@color/darkGreen" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="horizontal"
+                    android:weightSum="3">
+
+                    <Button
+                        android:id="@+id/entryButton0"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="8dp"
+                        android:layout_marginLeft="70dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/morewhiterbuttonshape"
+                        android:fontFamily="@font/montserratmedium"
+                        android:text="0"
+                        android:textColor="@color/darkGreen" />
+
+                    <Button
+                        android:id="@+id/buttonDel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="8dp"
+                        android:layout_marginVertical="8dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/morewhiterbuttonshape"
+                        android:fontFamily="@font/montserratmedium"
+                        android:text="DEL"
+                        android:textColor="@color/darkGreen" />
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/loginButtonStd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginHorizontal="8dp"
+                    android:layout_marginVertical="8dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/confirmbuttonshape"
+                    android:fontFamily="@font/montserratmedium"
+                    android:text="LOGIN"
+                    android:textColor="@color/lightGreen" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
