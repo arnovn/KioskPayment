@@ -24,17 +24,17 @@ import org.json.JSONObject;
 
 public class PaymentActivity extends AppCompatActivity {
 
-    int id;
+    int orderId;
+
+    int uerId;
+
+    int amount;
 
     String mail;
 
     String orderName;
 
-    int amount;
-
     String currency;
-
-    int receivedHashedId;
 
     CodeScanner codeScanner;
     CodeScannerView scannerView;
@@ -100,4 +100,6 @@ public class PaymentActivity extends AppCompatActivity {
             }
         }).check();
     }
+
+    //TODO: Start the paypal payment intent
 }
