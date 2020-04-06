@@ -5,8 +5,10 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,10 +30,17 @@ import com.paypal.android.sdk.payments.PayPalPaymentDetails;
 import com.paypal.android.sdk.payments.PayPalService;
 import com.paypal.android.sdk.payments.PaymentConfirmation;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.math.BigDecimal;
+import java.net.URI;
 
 public class PaymentActivity extends AppCompatActivity {
 
@@ -55,6 +64,8 @@ public class PaymentActivity extends AppCompatActivity {
 
     String currency;
 
+    String paymentDetails;
+
     CodeScanner codeScanner;
     CodeScannerView scannerView;
 
@@ -67,6 +78,7 @@ public class PaymentActivity extends AppCompatActivity {
 
         userId = getIntent().getIntExtra("id", 0);
         mail = getIntent().getStringExtra("mail");
+        paymentDetails = "";
 
         scannerView = findViewById(R.id.scannerView);
         codeScanner = new CodeScanner(this, scannerView);
@@ -127,7 +139,10 @@ public class PaymentActivity extends AppCompatActivity {
                 PaymentConfirmation confirmation = data.getParcelableExtra(com.paypal.android.sdk.payments.PaymentActivity.EXTRA_RESULT_CONFIRMATION);
                 if (confirmation != null) {
                     try {
-                        String paymentDetails = confirmation.toJSONObject().toString(4);
+                        new ConnectionUpdateOrder().execute();
+
+                        Toast.makeText(getApplicationContext(), "SUCCESS", Toast.LENGTH_LONG).show();
+                        paymentDetails = confirmation.toJSONObject().toString(4);
                         startActivity(new Intent(this, PaymentDetails.class)
                                 .putExtra("PaymentDetails", paymentDetails)
                                 .putExtra("PaymentAmount", amount)
@@ -178,5 +193,62 @@ public class PaymentActivity extends AppCompatActivity {
         }).check();
     }
 
-    //TODO: Start the paypal payment intent
+    /**
+     *  Class in charge of creating new order entry for the payment, status: PENDING
+     */
+    @SuppressLint("StaticFieldLeak")
+    public class ConnectionUpdateOrder extends AsyncTask<String, String, String> {
+        String result = "";
+
+        /**
+         * Method in charge of querying the database through an HTTP request.
+         * @param strings
+         *          Paramaters passed when the execution of the AsyncTask is called;
+         * @return
+         *          Returns the response of the database.
+         */
+        @Override
+        protected String doInBackground(String... strings) {
+            try{
+                String host = "http://"+ getResources().getString(R.string.ipphone) +"/updatepaymentprogress.php?orderid=" + orderId + "&progress=" + 2;
+                HttpClient client = new DefaultHttpClient();
+                HttpGet request = new HttpGet();
+                request.setURI(new URI(host));
+                HttpResponse response = client.execute(request);
+                BufferedReader reader = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+
+                StringBuilder stringBuffer = new StringBuilder();
+
+                String line;
+                while((line = reader.readLine()) != null){
+                    stringBuffer.append(line);
+                }
+                reader.close();
+                result = stringBuffer.toString();
+            } catch (Exception e) {
+                System.out.println("The exception: "+e.getMessage());
+                return "The exception: " + e.getMessage();
+            }
+            return result;
+        }
+
+        /**
+         * Method in charge of handling the result gathered from the database:
+         *  - if successful pending payment objects are created & added to the list
+         * @param s
+         *          Parameters passed when the AsyncTask has finished.
+         */
+        @Override
+        protected void onPostExecute(String s) {
+            try{
+                if(result.equals("success")){
+                    Toast.makeText(getApplicationContext(), "Succes!", Toast.LENGTH_LONG);
+                }else if(result.equals("error")){
+                    Toast.makeText(getApplicationContext(),"Error: something went wrong when paying",Toast.LENGTH_LONG).show();
+                }
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+    }
 }

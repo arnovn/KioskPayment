@@ -4,29 +4,100 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PaymentDetails">
+    tools:context=".PaymentDetails"
+    android:background="@color/backgroundColor">
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/titleView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/montserratmedium"
+        android:text="ORDER SUCCESSFUL"
+        android:textColor="@color/darkGreen"
+        android:textSize="20dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_marginTop="60dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/titleView">
 
-        <TextView
-            android:id="@+id/txtId"
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:layout_marginHorizontal="20dp"
+            android:background="@drawable/customshape"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/txtAmount"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="TextView" />
+            <TextView
+                android:id="@+id/textTitle2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserratbold"
+                android:layout_marginTop="20dp"
+                android:textSize="20dp"
+                android:gravity="center_horizontal"
+                android:layout_gravity="center_horizontal"
+                android:text="Thanks for your order!" />
 
-        <TextView
-            android:id="@+id/txtStatus"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="TextView" />
-    </LinearLayout>
+            <TextView
+                android:id="@+id/mailTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserratmedium"
+                android:layout_marginTop="10dp"
+                android:textSize="16dp"
+                android:gravity="center_horizontal"
+                android:layout_gravity="center_horizontal"
+                android:text="A confirmation mail\nhas been sent to you." />
+
+                <TextView
+                    android:id="@+id/txtId"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserratmedium"
+
+                    android:text="TextView" />
+
+                <TextView
+                    android:id="@+id/txtAmount"
+                    android:layout_marginLeft="20dp"
+                    android:layout_width="match_parent"
+                    android:fontFamily="@font/montserratmedium"
+                    android:layout_height="wrap_content"
+                    android:text="TextView" />
+
+                <TextView
+                    android:id="@+id/txtStatus"
+                    android:layout_marginLeft="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="TextView"
+                    android:layout_marginBottom="20dp"/>
+
+
+            <Button
+                android:id="@+id/signoutButtonStd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="8dp"
+                android:layout_marginVertical="8dp"
+                android:layout_weight="1"
+                android:background="@drawable/confirmbuttonshape"
+                android:fontFamily="@font/montserratmedium"
+                android:text="SIGN OUT"
+                android:textColor="@color/lightGreen" />
+        </LinearLayout>
+    </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

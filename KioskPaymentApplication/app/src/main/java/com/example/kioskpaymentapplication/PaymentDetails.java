@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.TextView;
 
 import org.json.JSONException;
@@ -12,6 +13,7 @@ import org.json.JSONObject;
 public class PaymentDetails extends AppCompatActivity {
 
     TextView textId, textAmount, textStatus;
+    Button signoutButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +23,9 @@ public class PaymentDetails extends AppCompatActivity {
         textId = findViewById(R.id.txtId);
         textAmount = findViewById(R.id.txtAmount);
         textStatus = findViewById(R.id.txtStatus);
+        signoutButton = findViewById(R.id.signoutButtonStd);
+
+        setOnClickLstn();
 
         Intent intent = getIntent();
 
@@ -41,5 +46,18 @@ public class PaymentDetails extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    private void setOnClickLstn(){
+        signoutButton.setOnClickListener(v->{
+            Intent returnIntent = new Intent(PaymentDetails.this, MainActivity.class);
+            returnIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(returnIntent);
+        });
+    }
+
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
     }
 }
