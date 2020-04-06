@@ -35,4 +35,6 @@ dependencies {
     implementation 'org.apache.commons:commons-lang3:3.6'
     implementation 'com.budiyev.android:code-scanner:2.1.0'
     implementation 'com.karumi:dexter:6.0.0'
+
+    implementation 'com.paypal.sdk:paypal-android-sdk:2.15.3'
 }
