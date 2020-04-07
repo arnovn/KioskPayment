@@ -42,35 +42,88 @@ import java.io.InputStreamReader;
 import java.math.BigDecimal;
 import java.net.URI;
 
+/**
+ * Activity in charge of=
+ *  1. Scanning the QR-code, verifying the QR-code & handling the data of this code
+ *  2. Handling the PayPal payment based on the data of the QR-code
+ */
 public class PaymentActivity extends AppCompatActivity {
 
+    /**
+     * Id of the oder
+     */
     int orderId;
 
+    /**
+     * Id of the user (from login)
+     */
     int userId;
 
+    /**
+     * Id of the user (from QR-code)
+     */
     int userQRId;
 
+    /**
+     * Amount to be payed
+     */
     int amount;
 
+    /**
+     * Payment request code passed to the PayPal Intent
+     */
     public static final int PAYPAL_REQUEST_CODE = 7171;
 
+    /**
+     * PayPal configuration
+     */
     private static PayPalConfiguration config = new PayPalConfiguration()
             .environment(PayPalConfiguration.ENVIRONMENT_SANDBOX)
             .clientId(Config.PAYPAL_CLIENT_ID);
 
+    /**
+     * Mail of the user
+     */
     String mail;
 
+    /**
+     * Name of the order (PAYPAL + orderId)
+     */
     String orderName;
 
+    /**
+     * Currency (coulde be passed by the QR-code, we use "EUR" for now)
+     */
     String currency;
 
+    /**
+     * Payment details received from PayPal
+     */
     String paymentDetails;
 
+    /**
+     * CodeScanner object
+     */
     CodeScanner codeScanner;
+
+    /**
+     * Code scanner view object
+     */
     CodeScannerView scannerView;
 
+    /**
+     * Result received from the QR-code that has been scanned
+     */
     TextView resultData;
 
+    /**
+     * When the activity is created:
+     *  - Retrieve necessary information from previous activity
+     *  - Initialize the QR-scanner objects
+     *  - Start PayPal service
+     * @param savedInstanceState
+     *             Bundle containing the activity's previously saved states
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -120,6 +173,9 @@ public class PaymentActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * To process a payment we initialize a new PayPal activity which will handle the Payment
+     */
     private void processPayment(){
         orderName = "PaypalPayment" + orderId;
         PayPalPayment payPalPayment = new PayPalPayment(new BigDecimal(amount), "EUR",
@@ -131,6 +187,18 @@ public class PaymentActivity extends AppCompatActivity {
         startActivityForResult(intent,PAYPAL_REQUEST_CODE);
     }
 
+    /**
+     * When the activity is finished we retrieve the necessary information & handle the result
+     *  - Same request code as result code & result = OK: to confirmation window & update database that payment was successful
+     *  - Result canceled: update database the request was canceled
+     *  - Result invalid: update database the request failed
+     * @param requestCode
+     *              Code passed when we initialized the service
+     * @param resultCode
+     *              Result code of the intent (should be same as requestCode)
+     * @param data
+     *              Data passed to the result
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -153,27 +221,39 @@ public class PaymentActivity extends AppCompatActivity {
                 }
             }
             else if(resultCode == Activity.RESULT_CANCELED){
+                //TODO: update database
                 Toast.makeText(this, "Cancel", Toast.LENGTH_LONG).show();
             }
         }
         else if(resultCode == com.paypal.android.sdk.payments.PaymentActivity.RESULT_EXTRAS_INVALID){
+                //TODO: update database
                 Toast.makeText(this, "Invalid", Toast.LENGTH_LONG).show();
         }
 
     }
 
+    /**
+     * When the PayPal service is no longer needed we stop it
+     */
     @Override
     protected void onDestroy() {
         stopService(new Intent(this, PayPalService.class));
         super.onDestroy();
     }
 
+    /**
+     * When the activity is resumed we request for camera permission
+     */
     @Override
     protected void onResume() {
         super.onResume();
         requestForCamera();
     }
 
+    /**
+     * request for camera permission if it hasn't been set
+     *  - necessary for  scanning QR-code
+     */
     private void requestForCamera(){
         Dexter.withActivity(this).withPermission(Manifest.permission.CAMERA).withListener(new PermissionListener() {
             @Override
@@ -194,7 +274,7 @@ public class PaymentActivity extends AppCompatActivity {
     }
 
     /**
-     *  Class in charge of creating new order entry for the payment, status: PENDING
+     *  Class in charge of updating the orders' progress in the database
      */
     @SuppressLint("StaticFieldLeak")
     public class ConnectionUpdateOrder extends AsyncTask<String, String, String> {

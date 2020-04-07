@@ -25,17 +25,15 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * First activity of the application, in charge of login
+ */
 public class MainActivity extends AppCompatActivity {
 
     /**
      * Code entered by the user.
      */
     String enteredCode;
-
-    /**
-     * Type of the bike
-     */
-    String type;
 
     /**
      * TextView visualizing the first digit of the code with *
@@ -160,6 +158,9 @@ public class MainActivity extends AppCompatActivity {
         buttonList.add(loginButton);
     }
 
+    /**
+     * Set the OnClickListeners of the button objects of the UI layer
+     */
     public void setOnClickListeners(){
         for(Button button: buttonList){
             if(button.getText().toString().equals("DEL")){
@@ -234,6 +235,9 @@ public class MainActivity extends AppCompatActivity {
         return code.equals(hashingObject.getGeneratedHash());
     }
 
+    /**
+     * Method in charge of creating the payment intent and starting the new activity
+     */
     private void toNextWindow(){
         Intent intent = new Intent(MainActivity.this, PaymentActivity.class);
         intent.putExtra("id", id);
